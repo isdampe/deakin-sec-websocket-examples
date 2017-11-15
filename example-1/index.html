@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebSocket Demo</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <script>
+        //Ask the user for some data to send to the server upon connection.
+        var msgToSend = prompt('Enter message to send over WebSocket to server');
+
+        //Create a client socket connection with the listening socket on the server.
+        var socket = new WebSocket('ws://localhost:8080/');
+
+        //Once the connection is established, send the message as specified by the user.
+        socket.onopen = function() {
+            socket.send(msgToSend);
+        };
+
+        //When the server sends us a message, display it on the screen.
+        socket.onmessage = function(evt) {
+            alert('Message received: ' + evt.data);
+        };
+
+        //Log any errors to the browser console.
+        socket.onerror = function(err) {
+            console.error(err);
+        };
+    </script>
+</body>
+</html>
